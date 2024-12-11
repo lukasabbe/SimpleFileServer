@@ -45,6 +45,15 @@ app.get('/download/:fileName', (req, res) => {
     return res.status(404).send("File not found");
 })
 
+app.get('/list', (req, res) => {
+    fs.readdir("./data/", (err, files) => {
+        if(err) {
+            return res.status(500).send(err);
+        }
+        res.json(files);
+    });
+});
+
 
 app.listen(3010, () => {
     console.log('Server is running on port 3000');
