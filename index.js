@@ -50,7 +50,10 @@ app.get('/list', (req, res) => {
         if(err) {
             return res.status(500).send(err);
         }
-        res.json(files);
+        let filesObjs = [];
+        files.forEach(file => {
+            filesObjs.push({"fileName":file, "link":"https://download.lukasabbe.com/download/"+file});
+        });
     });
 });
 
