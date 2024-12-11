@@ -1,11 +1,14 @@
 const app = require('express')();
 const fileUpload = require('express-fileupload'); 
+const cors = require('cors');
 const fs = require('fs');
 require('dotenv').config();
 
 app.get('/', (req, res) => {
     res.json({"service":"Online"});
 });
+
+app.use(cors());
 
 app.use(fileUpload());
 
