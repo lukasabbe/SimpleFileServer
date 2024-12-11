@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lukasabbe upploader website</title>
+</head>
+<body>
+    <h3>Upload your files here</h3>
+    <input type="file" id="file" name="file">
+    <h3>Token</h3>
+    <input type="text" id="token" name="token" placeholder="Token...">
+    <button id="upload">Upload</button>
+    <script>
+        document.getElementById('upload').addEventListener('click', async function(){
+            var files = document.getElementById('file').files;
+            if(files.length > 0){
+                var formData = new FormData();
+                for(var i = 0; i < files.length; i++){
+                    var file = files[i];
+                    formData.append('file', file, file.name);
+                }
+                await fetch('https://download.lukasabbe.com/upload', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        "authorization": "bearer: "+document.getElementById('token').value
+                    }
+                }).then( response => {
+                    if(response.ok){
+                        alert('Files uploaded');
+                        let a = document.body.appendChild(document.createElement("a"));
+                        a.href = "https://download.lukasabbe.com/download/"+formData.get('file').name;
+                        a.textContent = "https://download.lukasabbe.com/download/"+formData.get('file').name
+                    } else {
+                        alert('Error uploading files');
+                    }
+                } )
+            }
+        });
+    </script>
+</body>
+</html>
