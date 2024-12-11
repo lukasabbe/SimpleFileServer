@@ -31,7 +31,7 @@ app.post('/upload', (req, res) => {
 
     fs.writeFile("./data/"+fileName, uploadedFile.data, (err) => {
         if (err) {
-            res.status(500).send(err);
+            return res.status(500).send(err);
         }
         res.json({"message":"File uploaded successfully"});
     })   
