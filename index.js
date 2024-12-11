@@ -54,6 +54,7 @@ app.get('/list', (req, res) => {
         files.forEach(file => {
             filesObjs.push({"fileName":file, "link":"https://download.lukasabbe.com/download/"+file});
         });
+        res.json(filesObjs);
     });
 });
 
