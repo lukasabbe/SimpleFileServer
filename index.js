@@ -10,6 +10,11 @@ app.get('/', (req, res) => {
 app.use(fileUpload());
 
 app.post('/upload', (req, res) => {
+
+    if(!req.headers["authorization"]) {
+        return res.status(401).send("Unauthorized");
+    }
+
     if(req.headers["authorization"].split(" ")[1] != process.env.AUTH_TOKEN) {
         return res.status(401).send("Unauthorized");
     }
